@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Pokemon } from '../../models/pokemon.model';
 import { PokedexService } from '../../services/pokedex.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-pokedex',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './pokedex.component.html',
   styleUrl: './pokedex.component.scss'
 })
@@ -22,7 +23,7 @@ export class PokedexComponent implements OnInit {
           console.log('pokemons:', this.pokemons);
         },
         error => {
-          console.error('Erro while trying to get pokemons', error);
+          console.error('Error when trying to get pokemons', error);
         }
       )
   }
