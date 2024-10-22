@@ -3,4 +3,5 @@ export interface Pokemon {
 	name:			string;
 	description:	string;
 	type:			string;
+	imageUrl:		string;
 }

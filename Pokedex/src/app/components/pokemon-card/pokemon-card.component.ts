@@ -4,14 +4,13 @@ import { PokedexService } from '../../services/pokedex.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-pokedex',
+  selector: 'app-pokemon-card',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './pokedex.component.html',
-  styleUrl: './pokedex.component.scss'
+  templateUrl: './pokemon-card.component.html',
+  styleUrl: './pokemon-card.component.scss'
 })
-export class PokedexComponent implements OnInit {
-
+export class PokemonCardComponent implements OnInit {
   pokemons!: Pokemon[];
 
   constructor(private pokedexService: PokedexService) {}

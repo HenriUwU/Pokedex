@@ -15,6 +15,8 @@ public class Pokemon {
 	private String		description;
 	@Column
 	private String		type;
+	@Column
+	private String		imageUrl;
 
 	public Pokemon() {
 
@@ -44,6 +46,10 @@ public class Pokemon {
 		return pokedexNumber;
 	}
 
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
 	public void	setName(final String name) {
 		this.name = name;
 	}
@@ -58,6 +64,10 @@ public class Pokemon {
 
 	public void	setPokedexNumber(final int pokedexNumber) {
 		this.pokedexNumber = pokedexNumber;
+	}
+
+	public void	setImageUrl(final String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 }
