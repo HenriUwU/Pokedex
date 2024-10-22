@@ -1,45 +1,30 @@
 package io.tutorial.spring.Pokedex.model;
 
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
+@Entity
 public class Pokemon {
 	
-	public enum Type {
-		NONE,
-		NORMAL,
-		FIRE,
-		WATER,
-		GRASS,
-		FLYING,
-		FIGHTING,
-		POISON,
-		ELECTRIC,
-		GROUND,
-		ROCK,
-		PSYCHIC,
-		ICE,
-		BUG,
-		GHOST,
-		STEEL,
-		DRAGON,
-		DARK,
-		FAIRY
-	}
-	
+	@Id
 	private int			pokedexNumber;
+	@Column
 	private String		name;
+	@Column
 	private String		description;
-	private List<Type>	types;
+	@Column
+	private String		type;
 
 	public Pokemon() {
 
 	}
 
-	public Pokemon(String name, String description, List<Type> types, int pokedexNumber) {
+	public Pokemon(String name, String description, String type, int pokedexNumber) {
 		super();
 		this.name = name;
 		this.description = description;
-		this.types = types;
+		this.type = type;
 		this.pokedexNumber = pokedexNumber;
 	}
 
@@ -51,8 +36,8 @@ public class Pokemon {
 		return description;
 	}
 
-	public List<Type> getTypes() {
-		return types;
+	public String getType() {
+		return type;
 	}
 
 	public int getPokedexNumber() {
@@ -67,9 +52,12 @@ public class Pokemon {
 		this.description = description;
 	}
 
-	public void	setTypes(final Type firstType, final Type secondType) {
-		this.types.add(firstType);
-		this.types.add(secondType);
+	public void	setTypes(final String type) {
+		this.type = type;
+	}
+
+	public void	setPokedexNumber(final int pokedexNumber) {
+		this.pokedexNumber = pokedexNumber;
 	}
 
 }

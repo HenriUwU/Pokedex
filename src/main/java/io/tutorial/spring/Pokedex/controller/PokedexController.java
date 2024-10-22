@@ -1,6 +1,5 @@
 package io.tutorial.spring.Pokedex.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ public class PokedexController {
 	PokedexService	pokedexService;
 
 	@RequestMapping("/pokemons")
-	public List<Pokemon> getPokemons() {
+	public Iterable<Pokemon> getPokemons() {
 		return pokedexService.getPokemons();
 	}
 
