@@ -31,7 +31,12 @@ public class Pokemon {
 	private String		description;
 	private List<Type>	types;
 
+	public Pokemon() {
+
+	}
+
 	public Pokemon(String name, String description, List<Type> types, int pokedexNumber) {
+		super();
 		this.name = name;
 		this.description = description;
 		this.types = types;
@@ -46,7 +51,7 @@ public class Pokemon {
 		return description;
 	}
 
-	public List<Type> getType() {
+	public List<Type> getTypes() {
 		return types;
 	}
 
