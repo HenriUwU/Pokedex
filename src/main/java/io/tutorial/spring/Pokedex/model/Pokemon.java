@@ -1,8 +1,10 @@
 package io.tutorial.spring.Pokedex.model;
 
-public class Pokemon {
+import java.util.List;
 
-	enum Type {
+public class Pokemon {
+	
+	public enum Type {
 		NONE,
 		NORMAL,
 		FIRE,
@@ -24,12 +26,12 @@ public class Pokemon {
 		FAIRY
 	}
 	
+	private int			pokedexNumber;
 	private String		name;
 	private String		description;
-	private int[]		types;
-	private int			pokedexNumber;
+	private List<Type>	types;
 
-	public Pokemon(String name, String description, int[] types, int pokedexNumber) {
+	public Pokemon(String name, String description, List<Type> types, int pokedexNumber) {
 		this.name = name;
 		this.description = description;
 		this.types = types;
@@ -44,7 +46,7 @@ public class Pokemon {
 		return description;
 	}
 
-	public int[] getType() {
+	public List<Type> getType() {
 		return types;
 	}
 
@@ -60,9 +62,9 @@ public class Pokemon {
 		this.description = description;
 	}
 
-	public void	setTypes(final int firstType, final int secondType) {
-		this.types[0] = firstType;
-		this.types[1] = secondType;
+	public void	setTypes(final Type firstType, final Type secondType) {
+		this.types.add(firstType);
+		this.types.add(secondType);
 	}
 
 }
