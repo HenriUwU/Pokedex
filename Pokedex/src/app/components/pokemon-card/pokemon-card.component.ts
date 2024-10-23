@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class PokemonCardComponent implements OnInit {
   pokemons!: Pokemon[];
 
-  constructor(private pokedexService: PokedexService, private router: Router) {}
+  constructor(private pokedexService: PokedexService) {}
 
   ngOnInit(): void {
     this.pokedexService.getPokemons().subscribe(
@@ -29,7 +29,15 @@ export class PokemonCardComponent implements OnInit {
   }
 
   removePokemon(pokedexNumber: number): void {
-    this.router.navigateByUrl('');
-    this.pokedexService.removePokemon(pokedexNumber).subscribe();
+    this.pokedexService.removePokemon(pokedexNumber).subscribe(() => {
+      this.loadPokemons();
+    });
+
+  }
+
+  loadPokemons(): void {
+    this.pokedexService.getPokemons().subscribe(pokemons => {
+      this.pokemons = pokemons;
+    });
   }
 }

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormsModule, FormBuilder} from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PokedexService } from '../../services/pokedex.service';
 
 @Component({
   selector: 'app-add-pokemon',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink],
   templateUrl: './add-pokemon.component.html',
   styleUrl: './add-pokemon.component.scss'
 })
