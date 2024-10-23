@@ -8,12 +8,18 @@ import { Pokemon } from '../models/pokemon.model';
 })
 export class PokedexService {
   private readonly apiUrl = 'http://localhost:8080';
-  private readonly pokemonsEndpoint = '/pokemons';
-  private readonly body = "{\"pokedexNumber\":1,\"name\":\"Bulbasaur\",\"description\":\"The notorious\",\"type\":\"ELECTRIC\",\"imageUrl\":\"https://static.vecteezy.com/system/resources/previews/024/804/557/non_2x/pikachu-art-or-illustration-on-pickachu-free-vector.jpg\"}";
 
   constructor(private httpClient: HttpClient) { }
 
   getPokemons(): Observable<Pokemon[]> {
-    return this.httpClient.get<Pokemon[]>(this.apiUrl + this.pokemonsEndpoint);
+    return this.httpClient.get<Pokemon[]>(this.apiUrl + '/pokemons');
+  }
+
+  addPokemon(body: string): Observable<Pokemon> {
+    return this.httpClient.post<Pokemon>(this.apiUrl + '/addPokemon', body);
+  }
+
+  removePokemon(pokedexNumber: number): Observable<Pokemon> {
+    return this.httpClient.delete<Pokemon>(this.apiUrl + '/removePokemon/' + pokedexNumber.toString());
   }
 }
