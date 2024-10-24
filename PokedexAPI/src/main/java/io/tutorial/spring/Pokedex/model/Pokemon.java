@@ -14,19 +14,16 @@ public class Pokemon {
 	@Column
 	private String		description;
 	@Column
-	private String		type;
-	@Column
 	private String		imageUrl;
 
 	public Pokemon() {
 
 	}
 
-	public Pokemon(String name, String description, String type, int pokedexNumber) {
+	public Pokemon(String name, String description, int pokedexNumber) {
 		super();
 		this.name = name;
 		this.description = description;
-		this.type = type;
 		this.pokedexNumber = pokedexNumber;
 	}
 
@@ -36,10 +33,6 @@ public class Pokemon {
 
 	public String getDescription() {
 		return description;
-	}
-
-	public String getType() {
-		return type;
 	}
 
 	public int getPokedexNumber() {
@@ -56,10 +49,6 @@ public class Pokemon {
 
 	public void	setDescription(final String description) {
 		this.description = description;
-	}
-
-	public void	setTypes(final String type) {
-		this.type = type;
 	}
 
 	public void	setPokedexNumber(final int pokedexNumber) {
