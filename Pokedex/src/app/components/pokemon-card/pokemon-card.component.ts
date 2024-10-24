@@ -1,22 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { Pokemon } from '../../models/pokemon.model';
 import { PokedexService } from '../../services/pokedex.service';
 import { CommonModule } from '@angular/common';
-import { Optional } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-pokemon-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './pokemon-card.component.html',
   styleUrl: './pokemon-card.component.scss'
 })
 export class PokemonCardComponent implements OnInit {
   pokemons!: Pokemon[];
+  isEditing!: { [key:number]: boolean };
 
   constructor(private pokedexService: PokedexService,
-              private router: Router
+              private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -29,6 +30,7 @@ export class PokemonCardComponent implements OnInit {
         console.error('Error when trying to get pokemons', error);
       }
     )
+    this.isEditing = {};
   }
 
   removePokemon(pokedexNumber: number): void {
@@ -37,8 +39,19 @@ export class PokemonCardComponent implements OnInit {
     });
   }
 
-  updatePokemon(pokedexNumber: number): void {
-    this.router.navigateByUrl('updatePokemon');
+  editPokemon(pokedexNumber: number): void {
+    this.isEditing[pokedexNumber] = true;
+  }
+
+  updatePokemon(pokemon: Pokemon): void {
+    let body = '{"pokedexNumber":' + pokemon.pokedexNumber.toString() + ',"name":"' + pokemon.name + '","description":"' + pokemon.description + '","imageUrl":"' + pokemon.imageUrl + '"}';
+    console.log(body);
+    this.pokedexService.updatePokemon(pokemon.pokedexNumber, body).subscribe();
+    this.isEditing[pokemon.pokedexNumber] = false
+  }
+
+  cancelEdit(pokedexNumber: number): void {
+    this.isEditing[pokedexNumber] = false;
   }
 
   loadPokemons(): void {
