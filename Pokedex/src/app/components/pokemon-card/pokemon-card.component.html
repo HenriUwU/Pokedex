@@ -1,16 +1,18 @@
 <div class="pokemon-container">
 	<div class="pokemon-card" *ngFor="let pokemon of pokemons">
-		<h1 *ngIf="!isEditing[pokemon.pokedexNumber]" (click)="editPokemon(pokemon.pokedexNumber)">
+		<h1 *ngIf="!isEditing[pokemon.pokedexNumber]">
 			 {{ pokemon.name }} 
 		</h1>
 		<input *ngIf="isEditing[pokemon.pokedexNumber]" [(ngModel)]="pokemon.name" type="text">
 
-		<img src="{{ pokemon.imageUrl }}" alt="{{pokemon.name}}">
-		<p *ngIf="!isEditing[pokemon.pokedexNumber]" (click)="editPokemon(pokemon.pokedexNumber)">
+		<img *ngIf="!isEditing[pokemon.pokedexNumber]" src="{{ pokemon.imageUrl }}" alt="{{pokemon.name}}">
+		<input *ngIf="isEditing[pokemon.pokedexNumber]" [(ngModel)]="pokemon.imageUrl" type="text">
+
+		<p *ngIf="!isEditing[pokemon.pokedexNumber]">
 			Pokedex description: {{pokemon.description}}
 		</p>
 		<input *ngIf="isEditing[pokemon.pokedexNumber]" [(ngModel)]="pokemon.description" type="textarea">
-		
+
 		<div class="update-buttons">
 			<button *ngIf="isEditing[pokemon.pokedexNumber]" (click)="updatePokemon(pokemon)">Save</button>
 			<button *ngIf="isEditing[pokemon.pokedexNumber]" (click)="cancelEdit(pokemon.pokedexNumber)">Cancel</button>
