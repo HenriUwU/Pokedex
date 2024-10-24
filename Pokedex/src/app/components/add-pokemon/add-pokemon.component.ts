@@ -29,12 +29,9 @@ export class AddPokemonComponent implements OnInit {
 		});
 	}
 
-	onAddNewPokemon(): void {
-		this.router.navigateByUrl('pokedex');
-	}
-
 	onSubmitForm(): void {
 		this.pokedexService.addPokemon(this.newPokemonForm.value).subscribe();
+		this.router.navigateByUrl('pokedex');
 	}
 
 }

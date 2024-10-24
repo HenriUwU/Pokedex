@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Pokemon } from '../../models/pokemon.model';
 import { PokedexService } from '../../services/pokedex.service';
 import { CommonModule } from '@angular/common';
+import { Optional } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,7 +15,9 @@ import { Router } from '@angular/router';
 export class PokemonCardComponent implements OnInit {
   pokemons!: Pokemon[];
 
-  constructor(private pokedexService: PokedexService) {}
+  constructor(private pokedexService: PokedexService,
+              private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.pokedexService.getPokemons().subscribe(
@@ -32,7 +35,10 @@ export class PokemonCardComponent implements OnInit {
     this.pokedexService.removePokemon(pokedexNumber).subscribe(() => {
       this.loadPokemons();
     });
+  }
 
+  updatePokemon(pokedexNumber: number): void {
+    this.router.navigateByUrl('updatePokemon');
   }
 
   loadPokemons(): void {
@@ -40,4 +46,5 @@ export class PokemonCardComponent implements OnInit {
       this.pokemons = pokemons;
     });
   }
+
 }
