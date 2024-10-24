@@ -46,7 +46,7 @@ export class PokemonCardComponent implements OnInit {
   updatePokemon(pokemon: Pokemon): void {
     let body = '{"pokedexNumber":' + pokemon.pokedexNumber.toString() + ',"name":"' + pokemon.name + '","description":"' + pokemon.description + '","imageUrl":"' + pokemon.imageUrl + '"}';
     console.log(body);
-    this.pokedexService.updatePokemon(pokemon.pokedexNumber, body).subscribe();
+    this.pokedexService.updatePokemon(pokemon.pokedexNumber, pokemon).subscribe();
     this.isEditing[pokemon.pokedexNumber] = false
   }
 
