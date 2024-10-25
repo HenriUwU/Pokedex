@@ -7,8 +7,6 @@ RUN mvn dependency:go-offline
 
 COPY . .
 
-RUN mvn clean package -DskipTests
-
 EXPOSE 8080
 
 ENTRYPOINT [ "mvn", "spring-boot:run" ]

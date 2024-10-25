@@ -1,4 +1,4 @@
-FROM node:lts-bullseye AS build
+FROM node:20.18.0-slim AS build
 
 #-- Create a workdir inside the container --#
 WORKDIR	/app
