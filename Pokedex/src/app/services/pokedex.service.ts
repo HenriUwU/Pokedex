@@ -7,23 +7,23 @@ import { Pokemon } from '../models/pokemon.model';
   providedIn: 'root'
 })
 export class PokedexService {
-  private readonly apiUrl = 'http://localhost:8080';
+  private readonly apiUrl = 'http://localhost:8080/pokemons';
 
   constructor(private httpClient: HttpClient) { }
 
   getPokemons(): Observable<Pokemon[]> {
-    return this.httpClient.get<Pokemon[]>(this.apiUrl + '/pokemons');
+    return this.httpClient.get<Pokemon[]>(this.apiUrl);
   }
 
   addPokemon(body: string): Observable<Pokemon> {
-    return this.httpClient.post<Pokemon>(this.apiUrl + '/addPokemon', body);
+    return this.httpClient.post<Pokemon>(this.apiUrl, body);
   }
 
   removePokemon(pokedexNumber: number): Observable<Pokemon> {
-    return this.httpClient.delete<Pokemon>(this.apiUrl + '/removePokemon/' + pokedexNumber.toString());
+    return this.httpClient.delete<Pokemon>(this.apiUrl + '/' + pokedexNumber);
   }
 
   updatePokemon(pokedexNumber: number, pokemon: Pokemon): Observable<Pokemon> {
-    return this.httpClient.put<Pokemon>(this.apiUrl + '/updatePokemon/' + pokedexNumber.toString(), pokemon);
+    return this.httpClient.put<Pokemon>(this.apiUrl + '/' + pokedexNumber, pokemon);
   }
 }

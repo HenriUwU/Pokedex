@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 public class Pokemon {
 	
 	@Id
-	private int			pokedexNumber;
+	private Integer		pokedexNumber;
 	@Column
 	private String		name;
 	@Column
@@ -20,7 +20,7 @@ public class Pokemon {
 
 	}
 
-	public Pokemon(String name, String description, int pokedexNumber) {
+	public Pokemon(String name, String description, Integer pokedexNumber) {
 		super();
 		this.name = name;
 		this.description = description;

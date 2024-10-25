@@ -2,7 +2,6 @@ package io.tutorial.spring.Pokedex.service;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.tutorial.spring.Pokedex.model.Pokemon;
@@ -11,8 +10,11 @@ import io.tutorial.spring.Pokedex.repository.PokedexRepository;
 @Service
 public class PokedexService {
 
-	@Autowired
 	private PokedexRepository pokedexRepository;
+
+	public PokedexService(PokedexRepository pokedexRepository) {
+		this.pokedexRepository = pokedexRepository;
+	}
 	
 	public Iterable<Pokemon> getPokemons() {
 		return pokedexRepository.findAll();
