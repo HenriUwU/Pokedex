@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+    pokedex:
+        image: pokedex
+        container_name: pokedex
+        build:
+            context: ./Pokedex
+            dockerfile: ../containers/Pokedex/Dockerfile
+        volumes:
+            - ./Pokedex:/app
+        ports:
+            - "4200:4200"
+        networks:
+            - pokedex_network
+        depends_on:
+            - pokedexAPI
+
+    pokedexAPI:
+        image: api
+        container_name: api
+        build: 
+            context: ./PokedexAPI
+            dockerfile: ../containers/PokedexAPI/Dockerfile
+        volumes:
+            - ./PokedexAPI:/app
+        ports:
+            - "8080:8080"
+        networks:
+            - pokedex_network
+        depends_on:
+            - PostgreSQL
+    
+    PostgreSQL:
+        container_name : PostgreSQL
+        image: postgres
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        env_file:
+            - .env
+        environment:
+            - POSTGRES_DB=${DB_NAME}
+            - POSTGRES_USER=${DB_USER}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+        networks:
+            - pokedex_network
+
+volumes:
+    postgres_data:
+
+networks:
+    pokedex_network:
+        driver: bridge
+    
