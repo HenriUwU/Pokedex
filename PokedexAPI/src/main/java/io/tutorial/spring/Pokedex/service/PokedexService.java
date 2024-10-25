@@ -32,12 +32,11 @@ public class PokedexService {
 		pokedexRepository.deleteById(pokedexNumber);
 	}
 
-	public Pokemon updatePokemon(Pokemon pokemon, final int pokedexNumber) {
-		if (pokedexRepository.existsById(pokedexNumber)) {
-			pokemon.setPokedexNumber(pokedexNumber);
+	public Pokemon updatePokemon(final Pokemon pokemon) {
+		if (pokedexRepository.existsById(pokemon.getPokedexNumber())) {
 			return pokedexRepository.save(pokemon);
 		}
-		return null; // or throw exception
+		return null;
 	}
 
 }

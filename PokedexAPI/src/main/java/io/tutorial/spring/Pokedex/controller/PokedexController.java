@@ -44,9 +44,9 @@ public class PokedexController {
 		pokedexService.addPokemon(pokemon);
 	}
 
-	@RequestMapping(method = RequestMethod.PUT, value = "/{pokedexNumber}")
-	public void	updatePokemon(@RequestBody Pokemon pokemon,@PathVariable int pokedexNumber) {
-		pokedexService.updatePokemon(pokemon, pokedexNumber);
+	@RequestMapping(method = RequestMethod.PUT)
+	public void	updatePokemon(@RequestBody Pokemon pokemon) {
+		pokedexService.updatePokemon(pokemon);
 	}
 
 }

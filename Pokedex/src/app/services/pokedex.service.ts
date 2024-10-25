@@ -23,7 +23,7 @@ export class PokedexService {
     return this.httpClient.delete<Pokemon>(this.apiUrl + '/' + pokedexNumber);
   }
 
-  updatePokemon(pokedexNumber: number, pokemon: Pokemon): Observable<Pokemon> {
-    return this.httpClient.put<Pokemon>(this.apiUrl + '/' + pokedexNumber, pokemon);
+  updatePokemon(pokemon: Pokemon): Observable<Pokemon> {
+    return this.httpClient.put<Pokemon>(this.apiUrl, pokemon);
   }
 }
