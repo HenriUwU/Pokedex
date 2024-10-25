@@ -15,16 +15,19 @@ public class Pokemon {
 	private String		description;
 	@Column
 	private String		imageUrl;
+	@Column
+	private boolean		deleted;
 
 	public Pokemon() {
 
 	}
 
-	public Pokemon(String name, String description, Integer pokedexNumber) {
+	public Pokemon(String name, String description, Integer pokedexNumber, boolean deleted) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.pokedexNumber = pokedexNumber;
+		this.deleted = deleted;
 	}
 
 	public String getName() {
@@ -43,6 +46,10 @@ public class Pokemon {
 		return imageUrl;
 	}
 
+	public boolean getDeleted() {
+		return this.deleted;
+	}
+
 	public void	setName(final String name) {
 		this.name = name;
 	}
@@ -59,4 +66,7 @@ public class Pokemon {
 		this.imageUrl = imageUrl;
 	}
 
+	public void	setDeleted(final boolean deleted) {
+		this.deleted = deleted;
+	}
 }

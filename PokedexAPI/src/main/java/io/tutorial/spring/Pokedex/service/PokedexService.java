@@ -17,7 +17,7 @@ public class PokedexService {
 	}
 	
 	public Iterable<Pokemon> getPokemons() {
-		return pokedexRepository.findAll();
+		return pokedexRepository.findAllActive();
 	}
 
 	public Optional<Pokemon> getPokemonById(final int pokedexNumber) {
@@ -28,15 +28,20 @@ public class PokedexService {
 		pokedexRepository.save(pokemon);
 	}
 
-	public void	removePokemon(final int pokedexNumber) {
-		pokedexRepository.deleteById(pokedexNumber);
-	}
-
 	public Pokemon updatePokemon(final Pokemon pokemon) {
 		if (pokedexRepository.existsById(pokemon.getPokedexNumber())) {
 			return pokedexRepository.save(pokemon);
 		}
 		return null;
+	}
+	
+	public void	removePokemon(final int pokedexNumber) {
+		Optional<Pokemon> optionalPokemon = getPokemonById(pokedexNumber);
+		if (optionalPokemon.isPresent()) {
+			Pokemon pokemon = optionalPokemon.get();
+			pokemon.setDeleted(true);
+			updatePokemon(pokemon);
+		}
 	}
 
 }
