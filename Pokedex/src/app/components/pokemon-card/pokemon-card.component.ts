@@ -44,8 +44,9 @@ export class PokemonCardComponent implements OnInit {
   }
 
   updatePokemon(pokemon: Pokemon): void {
-    this.pokedexService.updatePokemon(pokemon);
-    this.isEditing[pokemon.pokedexNumber] = false;
+    this.pokedexService.updatePokemon(pokemon).subscribe(() =>
+      this.isEditing[pokemon.pokedexNumber] = false
+    );
   }
 
   cancelEdit(pokedexNumber: number): void {
