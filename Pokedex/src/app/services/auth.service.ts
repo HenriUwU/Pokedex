@@ -35,6 +35,10 @@ export class AuthService {
 		return !!sessionStorage.getItem(`token`);
 	}
 
+	logout(): void {
+		sessionStorage.removeItem(`token`);
+	}
+
 	getToken(): string | null {
 		return sessionStorage.getItem(`token`);
 	}

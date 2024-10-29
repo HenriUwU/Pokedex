@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -12,9 +12,16 @@ import { AuthService } from '../../services/auth.service';
 export class LandingPageComponent implements OnInit {
   username: string | null = null;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,
+              private router: Router
+  ) {}
 
   ngOnInit(): void {
       this.username = this.authService.getUsernameFromToken();
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigateByUrl('login');
   }
 }
