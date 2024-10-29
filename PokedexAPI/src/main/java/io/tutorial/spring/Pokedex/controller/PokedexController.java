@@ -34,6 +34,9 @@ public class PokedexController {
 	@GetMapping
 	public Iterable<Pokemon> getPokemons(Authentication authentication) {
 		String username = authentication.getName();
+		if (authentication == null || !authentication.isAuthenticated()) {
+			throw new RuntimeException("User not authenticated");
+		}
 		return pokedexService.getPokemons(username);
 	}
 

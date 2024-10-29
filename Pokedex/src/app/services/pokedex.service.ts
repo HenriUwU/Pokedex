@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Pokemon } from '../models/pokemon.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,9 @@ import { Pokemon } from '../models/pokemon.model';
 export class PokedexService {
   private readonly apiUrl = 'http://localhost:8080/pokemons';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+              private authService: AuthService
+  ) { }
 
   getPokemons(): Observable<Pokemon[]> {
     return this.httpClient.get<Pokemon[]>(this.apiUrl);
