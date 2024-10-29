@@ -17,7 +17,7 @@ public class PokedexService {
 	}
 	
 	public Iterable<Pokemon> getPokemons(String username) {
-		return pokedexRepository.findByUser_Username(username);
+		return pokedexRepository.findByUser_UsernameAndDeletedFalse(username);
 	}
 
 	public Optional<Pokemon> getPokemonByIdAndUser(int pokedexNumber, String username) {

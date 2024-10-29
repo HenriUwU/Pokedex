@@ -13,10 +13,8 @@ public interface PokedexRepository extends CrudRepository<Pokemon, Integer> {
 	@Query("SELECT p FROM Pokemon p WHERE p.deleted = false")
 	Iterable<Pokemon> findAllActive();
 
-	@Query("SELECT p FROM Pokemon p WHERE p.deleted = false")
-	List<Pokemon> findByUser_Username(String username);
+	List<Pokemon> findByUser_UsernameAndDeletedFalse(String username);
 
-	@Query("SELECT p FROM Pokemon p WHERE p.deleted = false")
 	Optional<Pokemon> findByPokedexNumberAndUser_Username(Integer pokedexNumber, String username);
 
 }
