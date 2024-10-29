@@ -1,0 +1,20 @@
+<div class="form-card">
+	<h2>Login</h2>
+	<form [formGroup]="loginForm">
+		<div class="form-group">
+			<label for="username">Username</label>
+			<input type="text" id="username" formControlName="username">
+		</div>
+		<div class="form-group">
+			<label for="password">Password</label>
+			<input type="password" id="password" formControlName="password">
+		</div>
+		<div class="action-buttons">
+			<button type="button" (click)="onSubmit()">Login</button>
+		</div>
+	</form>
+
+	<div>
+		<p>Not registed yet: <a routerLink="/register">Register</a></p>
+	</div>
+</div>

@@ -16,12 +16,12 @@ public class PokedexService {
 		this.pokedexRepository = pokedexRepository;
 	}
 	
-	public Iterable<Pokemon> getPokemons() {
-		return pokedexRepository.findAllActive();
+	public Iterable<Pokemon> getPokemons(String username) {
+		return pokedexRepository.findByUser_Username(username);
 	}
 
-	public Optional<Pokemon> getPokemonById(final int pokedexNumber) {
-		return pokedexRepository.findById(pokedexNumber);
+	public Optional<Pokemon> getPokemonByIdAndUser(int pokedexNumber, String username) {
+		return pokedexRepository.findByPokedexNumberAndUser_Username(pokedexNumber, username);
 	}
 
 	public void	addPokemon(final Pokemon pokemon) {
@@ -35,8 +35,8 @@ public class PokedexService {
 		return null;
 	}
 	
-	public void	removePokemon(final int pokedexNumber) {
-		Optional<Pokemon> optionalPokemon = getPokemonById(pokedexNumber);
+	public void	removePokemon(final int pokedexNumber, String username) {
+		Optional<Pokemon> optionalPokemon = getPokemonByIdAndUser(pokedexNumber, username);
 		if (optionalPokemon.isPresent()) {
 			Pokemon pokemon = optionalPokemon.get();
 			pokemon.setDeleted(true);

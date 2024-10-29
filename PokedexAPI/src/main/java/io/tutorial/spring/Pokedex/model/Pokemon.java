@@ -3,6 +3,8 @@ package io.tutorial.spring.Pokedex.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Pokemon {
@@ -17,6 +19,10 @@ public class Pokemon {
 	private String		imageUrl;
 	@Column
 	private boolean		deleted;
+
+	@ManyToOne
+	@JoinColumn(name="user_id", nullable = false)
+	private User user;
 
 	public Pokemon() {
 
@@ -68,5 +74,13 @@ public class Pokemon {
 
 	public void	setDeleted(final boolean deleted) {
 		this.deleted = deleted;
+	}
+
+	public void setUser(final User user) {
+		this.user = user;
+	}
+
+	public User getUser() {
+		return user;
 	}
 }
