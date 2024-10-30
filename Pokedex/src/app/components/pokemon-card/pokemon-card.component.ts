@@ -4,6 +4,7 @@ import { PokedexService } from '../../services/pokedex.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { EvolutionCardComponent } from '../evolution-card/evolution-card.component';
 
 @Component({
   selector: 'app-pokemon-card',

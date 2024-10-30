@@ -31,7 +31,7 @@
 			<select id="pokemon" class="form-control" (change)="onPokemonSelect($event)">
 				<option value="">--Select--</option>
 				<option *ngFor="let pokemon of pokemons" [value]="pokemon.pokedexNumber">
-					{{ pokemon.name }}
+					{{ pokemon.name }} Nº {{ pokemon.pokedexNumber }}
 				</option>
 			</select>
 		</div>

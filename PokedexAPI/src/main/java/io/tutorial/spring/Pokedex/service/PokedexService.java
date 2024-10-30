@@ -35,12 +35,7 @@ public class PokedexService {
 	}
 	
 	public void	removePokemon(final int pokedexNumber, String username) {
-		Optional<Pokemon> optionalPokemon = getPokemonByIdAndUser(pokedexNumber, username);
-		if (optionalPokemon.isPresent()) {
-			Pokemon pokemon = optionalPokemon.get();
-			pokemon.setDeleted(true);
-			updatePokemon(pokemon);
-		}
+		pokedexRepository.deleteById(pokedexNumber);
 	}
 
 }
