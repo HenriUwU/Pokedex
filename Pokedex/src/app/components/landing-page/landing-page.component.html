@@ -1,8 +1,11 @@
 <div class="landing-block">
 	<h1> Welcome to your Pokedex {{ username }}</h1>
 	<nav>
-		<a routerLink="pokedex" routerLinkActive="active">See Pokedex</a>
-		<p></p>
-		<a routerLink="login" (click)="logout()">Logout</a>
+		<div>
+			<a routerLink="pokedex" routerLinkActive="active">See Pokedex</a>
+		</div>
+		<div>
+			<a routerLink="login" (click)="logout()">Logout</a>
+		</div>
 	</nav>
 </div>

@@ -3,6 +3,10 @@
 	text-align: center;
 	
 	nav {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		gap: 50px;
 		text-align: center;
 		box-sizing: border-box;
 		width:20%;

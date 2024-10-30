@@ -1,18 +1,13 @@
 package io.tutorial.spring.Pokedex.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 
 @Entity
-public class Pokemon {
+public class Evolution {
 	
 	@Id
 	private Integer		pokedexNumber;
@@ -26,21 +21,18 @@ public class Pokemon {
 	private boolean		deleted;
 
 	@ManyToOne
-	@JoinColumn(name="user_id", nullable = false)
+	@JoinColumn(name="pokemon_pokedex_number", nullable = false)
+	private Pokemon pokemon;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
-	@OneToMany(
-		mappedBy = "pokemon",
-		cascade = CascadeType.ALL,
-		orphanRemoval = true	
-	)
-	private List<Evolution> evolution = new ArrayList<>();
-
-	public Pokemon() {
+	public Evolution() {
 
 	}
 
-	public Pokemon(String name, String description, Integer pokedexNumber, boolean deleted) {
+	public Evolution(String name, String description, Integer pokedexNumber, boolean deleted) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -68,6 +60,14 @@ public class Pokemon {
 		return this.deleted;
 	}
 
+	public Pokemon getPokemon() {
+		return pokemon;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
 	public void	setName(final String name) {
 		this.name = name;
 	}
@@ -87,13 +87,13 @@ public class Pokemon {
 	public void	setDeleted(final boolean deleted) {
 		this.deleted = deleted;
 	}
-
-	public void setUser(final User user) {
-		this.user = user;
+	
+	public void setPokemon(Pokemon pokemon) {
+		this.pokemon = pokemon;
 	}
 
-	public User getUser() {
-		return user;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

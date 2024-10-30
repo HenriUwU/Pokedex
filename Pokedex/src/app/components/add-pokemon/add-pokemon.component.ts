@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormsModule, FormBuilder} from '@angular/forms';
+import { FormGroup, FormsModule, FormBuilder, Validators} from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PokedexService } from '../../services/pokedex.service';
@@ -17,22 +17,24 @@ export class AddPokemonComponent implements OnInit {
 
 	constructor(private router: Router, 
 		private formBuilder: FormBuilder, 
-		private pokedexService: PokedexService) {}
+		private pokedexService: PokedexService
+	) {	}
 
 	ngOnInit(): void {
 		this.newPokemonForm = this.formBuilder.group({
-			pokedexNumber: [null],
-			name: [null],
-			description: [null],
-			imageUrl: [null],
-			type: [null]
+			pokedexNumber: ['', Validators.required],
+			name: ['', Validators.required],
+			description: ['', Validators.required],
+			imageUrl: ['', Validators.required]
 		});
 	}
 
 	onSubmitForm(): void {
-		this.pokedexService.addPokemon(this.newPokemonForm.value).subscribe(() =>
-			this.router.navigateByUrl('pokedex')
-		);
+		if (this.newPokemonForm.valid) {
+			this.pokedexService.addPokemon(this.newPokemonForm.value).subscribe(() =>
+				this.router.navigateByUrl('pokedex')
+			);
+		}
 	}
 
 }

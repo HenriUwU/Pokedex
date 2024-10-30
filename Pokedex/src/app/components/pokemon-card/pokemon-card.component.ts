@@ -17,14 +17,13 @@ export class PokemonCardComponent implements OnInit {
   isEditing!: { [key:number]: boolean };
 
   constructor(private pokedexService: PokedexService,
-              private router: Router,
+              private router: Router
   ) {}
 
   ngOnInit(): void {
     this.pokedexService.getPokemons().subscribe(
       data => {
         this.pokemons = data;
-        console.log('pokemons:', this.pokemons);
       },
       error => {
         console.error('Error when trying to get pokemons', error);

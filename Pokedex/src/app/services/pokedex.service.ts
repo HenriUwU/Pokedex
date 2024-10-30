@@ -27,7 +27,6 @@ export class PokedexService {
   }
 
   updatePokemon(pokemon: Pokemon): Observable<Pokemon> {
-    console.log(pokemon);
     return this.httpClient.put<Pokemon>(this.apiUrl, pokemon);
   }
 }

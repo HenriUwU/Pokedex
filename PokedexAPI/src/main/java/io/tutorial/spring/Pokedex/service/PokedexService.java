@@ -20,7 +20,7 @@ public class PokedexService {
 		return pokedexRepository.findByUser_UsernameAndDeletedFalse(username);
 	}
 
-	public Optional<Pokemon> getPokemonByIdAndUser(int pokedexNumber, String username) {
+	public Optional<Pokemon> getPokemonByIdAndUser(Integer pokedexNumber, String username) {
 		return pokedexRepository.findByPokedexNumberAndUser_Username(pokedexNumber, username);
 	}
 
@@ -28,11 +28,10 @@ public class PokedexService {
 		pokedexRepository.save(pokemon);
 	}
 
-	public Pokemon updatePokemon(final Pokemon pokemon) {
+	public void updatePokemon(final Pokemon pokemon) {
 		if (pokedexRepository.existsById(pokemon.getPokedexNumber())) {
-			return pokedexRepository.save(pokemon);
+			pokedexRepository.save(pokemon);
 		}
-		return null;
 	}
 	
 	public void	removePokemon(final int pokedexNumber, String username) {

@@ -1,0 +1,27 @@
+<div class="pokemon-container">
+	<div class="pokemon-card" *ngFor="let evolution of evolutions">
+			<h1 *ngIf="!isEditing[evolution.pokedexNumber]" >
+				 {{ evolution.name }} 
+				 Nº {{ evolution.pokedexNumber }}
+			</h1>
+		<input *ngIf="isEditing[evolution.pokedexNumber]" [(ngModel)]="evolution.name" type="text">
+
+		<img *ngIf="!isEditing[evolution.pokedexNumber]" src="{{ evolution.imageUrl }}" alt="{{evolution.name}}">
+		<input *ngIf="isEditing[evolution.pokedexNumber]" [(ngModel)]="evolution.imageUrl" type="text">
+
+		<p *ngIf="!isEditing[evolution.pokedexNumber]">
+			Pokedex description: {{evolution.description}}
+		</p>
+		<input *ngIf="isEditing[evolution.pokedexNumber]" [(ngModel)]="evolution.description" type="textarea">
+
+		<div class="update-buttons">
+			<button *ngIf="isEditing[evolution.pokedexNumber]" (click)="updateEvolution(evolution)">Save</button>
+			<button *ngIf="isEditing[evolution.pokedexNumber]" (click)="cancelEdit(evolution.pokedexNumber)">Cancel</button>
+		</div>
+
+		<div class="delete-button">
+			<button (click)="removeEvolution(evolution.pokedexNumber)">Delete</button> 
+			<button (click)="editEvolution(evolution.pokedexNumber)">Update</button> 
+		</div>
+	</div>
+</div>
