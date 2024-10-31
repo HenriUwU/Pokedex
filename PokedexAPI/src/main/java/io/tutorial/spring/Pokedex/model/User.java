@@ -33,7 +33,7 @@ public class User {
 		cascade = CascadeType.ALL,
 		orphanRemoval = true	
 	)
-	private List<Pokemon> pokemons = new ArrayList<>();
+	private final List<Pokemon> pokemons = new ArrayList<>();
 
 	public User() { }
 
