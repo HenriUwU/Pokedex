@@ -66,5 +66,5 @@ class EvolutionControllerTest {
         assertEquals("User not found", exception.getMessage());
 
     }
-    
+
 }
