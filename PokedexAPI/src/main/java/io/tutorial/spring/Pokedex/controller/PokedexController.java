@@ -44,7 +44,7 @@ public class PokedexController {
 	public void	addPokemon(@RequestBody final Pokemon pokemon, Authentication authentication) {
 		String username = authentication.getName();
 		User user = userService.findByUsername(username)
-			.orElseThrow(() -> new RuntimeException("User not found"));
+			.orElseThrow(() -> new RuntimeException("User not authenticated"));
 		pokemon.setUser(user);
 		pokedexService.addPokemon(pokemon);
 	}
@@ -59,7 +59,7 @@ public class PokedexController {
 	public void	updatePokemon(@RequestBody Pokemon pokemon, Authentication authentication) {
 		String username = authentication.getName();
 		User user = userService.findByUsername(username)
-			.orElseThrow(() -> new RuntimeException("User not found"));
+			.orElseThrow(() -> new RuntimeException("User not authenticated"));
 		pokemon.setUser(user);
 		pokedexService.updatePokemon(pokemon);
 	}
