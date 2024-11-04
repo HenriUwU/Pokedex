@@ -10,8 +10,7 @@ import io.tutorial.spring.Pokedex.repository.EvolutionRepository;
 @Service
 public class EvolutionService {
 
-	private EvolutionRepository evolutionRepository;
-
+	private final EvolutionRepository evolutionRepository;
 
 	public EvolutionService(EvolutionRepository evolutionRepository) {
 		this.evolutionRepository = evolutionRepository;

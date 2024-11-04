@@ -13,7 +13,7 @@ import io.tutorial.spring.Pokedex.repository.UserRepository;
 @Service
 public class UserService implements UserDetailsService {
 
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
 
 	public	UserService(UserRepository userRepository) {
 		this.userRepository = userRepository;

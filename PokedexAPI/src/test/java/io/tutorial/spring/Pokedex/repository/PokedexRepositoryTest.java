@@ -54,6 +54,7 @@ class PokedexRepositoryTest {
 
     @Test
     public void shouldReturnPokemonOfUserByPokedexNumber() {
+        // Arrange
         User user = new User("user", "password");
         userRepository.save(user);
 
