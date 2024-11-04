@@ -48,7 +48,7 @@ class PokedexServiceTest {
     }
 
     @Test
-    void getPokemonByIdAndUser() {
+    void getPokemonByIdAndUser_shouldReturnPokemon() {
         // Arrange
         String username = "username";
         Pokemon pokemon = new Pokemon("Pikachu", "The notorious", 25, false);
