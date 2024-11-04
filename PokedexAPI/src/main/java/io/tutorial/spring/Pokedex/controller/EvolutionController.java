@@ -23,9 +23,9 @@ import io.tutorial.spring.Pokedex.service.UserService;
 @RequestMapping("/evolutions")
 public class EvolutionController {
 
-	private EvolutionService evolutionService;
-	private PokedexRepository pokedexRepository;
-	private UserService userService;
+	private final EvolutionService evolutionService;
+	private final PokedexRepository pokedexRepository;
+	private final UserService userService;
 
 	public EvolutionController(EvolutionService evolutionService, PokedexRepository pokedexRepository, UserService userService) {
 		this.evolutionService = evolutionService;
@@ -37,7 +37,7 @@ public class EvolutionController {
 	public Iterable<Evolution> getEvolutions(Authentication authentication) {
 		String username = authentication.getName();
 		
-		if (authentication == null || !authentication.isAuthenticated()) {
+		if (!authentication.isAuthenticated()) {
 			throw new RuntimeException("User not found");
 		}
 		return evolutionService.getEvolutions(username);
