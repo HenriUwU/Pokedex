@@ -1,5 +1,8 @@
 package io.tutorial.spring.Pokedex.controller;
 
+import io.tutorial.spring.Pokedex.dto.PokemonDTO;
+import io.tutorial.spring.Pokedex.mapper.PokemonMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +20,8 @@ import io.tutorial.spring.Pokedex.model.User;
 import io.tutorial.spring.Pokedex.service.PokedexService;
 import io.tutorial.spring.Pokedex.service.UserService;
 
+import java.util.ArrayList;
+
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -25,26 +30,30 @@ public class PokedexController {
 
 	private  final PokedexService	pokedexService;
 	private  final UserService		userService;
+	private final PokemonMapper pokemonMapper;
 
-	public PokedexController(PokedexService pokedexService, UserService userService) {
+	public PokedexController(PokedexService pokedexService, UserService userService, PokemonMapper pokemonMapper) {
 		this.pokedexService = pokedexService;
 		this.userService = userService;
+		this.pokemonMapper = pokemonMapper;
 	}
 
 	@GetMapping
-	public Iterable<Pokemon> getPokemons(Authentication authentication) {
+	public Iterable<PokemonDTO> getPokemons(Authentication authentication) {
 		String username = authentication.getName();
 		if (!authentication.isAuthenticated()) {
 			throw new RuntimeException("User not authenticated");
 		}
-		return pokedexService.getPokemons(username);
+		Iterable<Pokemon> pokemons = pokedexService.getPokemons(username);
+		return PokemonMapper.INSTANCE.toDtoList(pokemons);
 	}
 
 	@PostMapping
-	public void	addPokemon(@RequestBody final Pokemon pokemon, Authentication authentication) {
+	public void	addPokemon(@RequestBody final PokemonDTO pokemonDTO, Authentication authentication) {
 		String username = authentication.getName();
 		User user = userService.findByUsername(username)
 			.orElseThrow(() -> new RuntimeException("User not authenticated"));
+		Pokemon pokemon = pokemonMapper.toPokemon(pokemonDTO);
 		pokemon.setUser(user);
 		pokedexService.addPokemon(pokemon);
 	}
@@ -56,10 +65,11 @@ public class PokedexController {
 	}
 
 	@PutMapping
-	public void	updatePokemon(@RequestBody Pokemon pokemon, Authentication authentication) {
+	public void	updatePokemon(@RequestBody PokemonDTO pokemonDTO, Authentication authentication) {
 		String username = authentication.getName();
 		User user = userService.findByUsername(username)
 			.orElseThrow(() -> new RuntimeException("User not authenticated"));
+		Pokemon pokemon = pokemonMapper.toPokemon(pokemonDTO);
 		pokemon.setUser(user);
 		pokedexService.updatePokemon(pokemon);
 	}

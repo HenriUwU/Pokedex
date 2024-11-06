@@ -34,7 +34,7 @@ public class Pokemon {
 		cascade = CascadeType.ALL,
 		orphanRemoval = true	
 	)
-	private List<Evolution> evolution = new ArrayList<>();
+	private final List<Evolution> evolution = new ArrayList<>();
 
 	public Pokemon() {
 

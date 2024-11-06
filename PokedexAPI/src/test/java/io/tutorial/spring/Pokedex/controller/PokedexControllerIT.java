@@ -98,6 +98,6 @@ class PokedexControllerIT {
         assertEquals(1, finalResult.size());
         assertEquals(pokemon.getPokedexNumber(), finalResult.getFirst().getPokedexNumber());
         assertEquals(pokemon.getName(), finalResult.getFirst().getName());
-        
+
     }
 }
