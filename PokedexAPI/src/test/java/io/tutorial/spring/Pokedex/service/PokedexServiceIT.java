@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -56,9 +57,26 @@ class PokedexServiceIT {
         assertEquals(2, finalResult.size());
         assertEquals(pokemon2.getPokedexNumber(), finalResult.getFirst().getPokedexNumber());
         assertEquals(pokemon1.getPokedexNumber(), finalResult.getLast().getPokedexNumber());
+
     }
 
     @Test
-    void getPokemonByIdAndUser() {
+    void getPokemonByIdAndUser_shouldReturnPokemon() {
+        // Arrange
+        User user = new User("username", "password");
+        userRepository.save(user);
+
+        Pokemon pokemon = new Pokemon("Pikachu", "The notorious", 25, false);
+        pokemon.setUser(user);
+        pokedexRepository.save(pokemon);
+
+        // Act
+        Optional<Pokemon> result = pokedexService.getPokemonByIdAndUser(pokemon.getPokedexNumber(), user.getUsername());
+
+        // Assert
+        assertTrue(result.isPresent());
+        assertEquals(pokemon.getPokedexNumber(), result.get().getPokedexNumber());
+        assertEquals(pokemon.getUser().getUsername(), result.get().getUser().getUsername());
+
     }
 }
