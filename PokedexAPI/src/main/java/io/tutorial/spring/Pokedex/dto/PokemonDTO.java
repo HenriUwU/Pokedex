@@ -1,5 +1,7 @@
 package io.tutorial.spring.Pokedex.dto;
 
+import org.mapstruct.Mapping;
+
 public class PokemonDTO {
 
     private Integer pokedexNumber;

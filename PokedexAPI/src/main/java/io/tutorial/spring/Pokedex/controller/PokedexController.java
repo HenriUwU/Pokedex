@@ -45,7 +45,7 @@ public class PokedexController {
 			throw new RuntimeException("User not authenticated");
 		}
 		Iterable<Pokemon> pokemons = pokedexService.getPokemons(username);
-		return PokemonMapper.INSTANCE.toDtoList(pokemons);
+		return pokemonMapper.toDtoList(pokemons);
 	}
 
 	@PostMapping

@@ -10,6 +10,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.Authentication;
 
 import java.util.List;
@@ -18,6 +22,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@SpringBootTest
+@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 class PokedexControllerTest {
 
     @Mock
@@ -29,6 +35,9 @@ class PokedexControllerTest {
     @Mock
     private UserService userService;
 
+    @Mock
+    private PokemonMapper pokemonMapper;
+
     @InjectMocks
     private PokedexController pokedexController;
 
@@ -37,54 +46,32 @@ class PokedexControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-//    @Test
-//    void getPokemons_shouldReturnPokemons() {
-//        // Arrange
-//        String username = "authenticatedUser";
-//        Iterable<Pokemon> pokemons = List.of(
-//                new Pokemon("Pikachu", "The notorious", 25, false),
-//                new Pokemon("Dracaufeu", "The billionaire", 6, false)
-//        );
-//
-//        when(authentication.isAuthenticated()).thenReturn(true);
-//        when(authentication.getName()).thenReturn(username);
-//        when(pokedexService.getPokemons(username)).thenReturn(pokemons);
-//
-//        // Act
-//        Iterable<PokemonDTO> resultDTO = pokedexController.getPokemons(authentication);
-//
-//        // Assert
-//        assertEquals(pokemons, result);
-//        verify(pokedexService).getPokemons(username);
-//
-//    }
-//
-//    @Test
-//    void getPokemons_shouldThrowExceptionWhenUserNotAuthenticated() {
-//        // Arrange
-//        String username = "notAuthenticatedUser";
-//
-//        when(authentication.isAuthenticated()).thenReturn(false);
-//        when(authentication.getName()).thenReturn("wrongUsername");
-//
-//        // Act & Assert
-//        RuntimeException exception = assertThrows(RuntimeException.class, () -> pokedexController.getPokemons(authentication));
-//        assertEquals("User not authenticated", exception.getMessage());
-//    }
-//
-//    @Test
-//    void addPokemon_shouldThrowExceptionWhenUserNotAuthenticated() {
-//        // Arrange
-//        Pokemon pokemon = new Pokemon("Pikachu", "The notorious", 25, false);
-//        String username = "notAuthenticatedUser";
-//
-//        when(authentication.isAuthenticated()).thenReturn(false);
-//        when(userService.findByUsername(username)).thenReturn(null);
-//
-////      Act & Assert
-//        RuntimeException exception = assertThrows(RuntimeException.class, () -> pokedexController.addPokemon(pokemon, authentication));
-//        assertEquals("User not authenticated", exception.getMessage());
-//
-//    }
+    @Test
+    void getPokemons_shouldThrowExceptionWhenUserNotAuthenticated() {
+        // Arrange
+        String username = "notAuthenticatedUser";
+
+        when(authentication.isAuthenticated()).thenReturn(false);
+        when(authentication.getName()).thenReturn("wrongUsername");
+
+        // Act & Assert
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> pokedexController.getPokemons(authentication));
+        assertEquals("User not authenticated", exception.getMessage());
+    }
+
+    @Test
+    void addPokemon_shouldThrowExceptionWhenUserNotAuthenticated() {
+        // Arrange
+        PokemonDTO pokemonDTO = new PokemonDTO(25, "Pikachu", "The Notorious", "");
+        String username = "notAuthenticatedUser";
+
+        when(authentication.isAuthenticated()).thenReturn(false);
+        when(userService.findByUsername(username)).thenReturn(null);
+
+        // Act & Assert
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> pokedexController.addPokemon(pokemonDTO, authentication));
+        assertEquals("User not authenticated", exception.getMessage());
+
+    }
 
 }
