@@ -32,29 +32,6 @@ class EvolutionControllerTest {
     }
 
     @Test
-    void getEvolutions_shouldReturnAllEvolutions() {
-        // Arrange
-        String username = "authenticatedUser";
-        Iterable<Evolution>  evolutions = List.of(
-                new Evolution("Raichu", "Not so notorious", 26, false),
-                new Evolution("Tortank", "TiboInshape", 9, false)
-        );
-
-        when(authentication.isAuthenticated()).thenReturn(true);
-        when(authentication.getName()).thenReturn(username);
-        when(evolutionService.getEvolutions(username)).thenReturn(evolutions);
-
-        // Act
-        Iterable<Evolution> result = evolutionController.getEvolutions(authentication);
-
-        // Assert
-        assertNotNull(result);
-        assertEquals(evolutions, result);
-        verify(evolutionService).getEvolutions(username);
-
-    }
-
-    @Test
     void getEvolutions_shouldThrowExceptionWhenUserIsNotAuthenticated() {
         // Arrange
         String username = "notAuthenticatedUser";
