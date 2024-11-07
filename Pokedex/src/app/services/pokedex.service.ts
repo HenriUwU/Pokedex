@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Pokemon } from '../models/pokemon.model';
 import { AuthService } from './auth.service';
+import { PokemonResponse } from '../models/PokemonResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,12 @@ export class PokedexService {
               private authService: AuthService
   ) { }
 
-  getPokemons(): Observable<Pokemon[]> {
-    return this.httpClient.get<Pokemon[]>(this.apiUrl);
+  getPokemons(pageNo: number, pageSize: number): Observable<PokemonResponse> {
+    const params = new HttpParams()
+      .set('pageNo', pageNo.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.httpClient.get<PokemonResponse>(this.apiUrl, { params });
   }
 
   addPokemon(body: string): Observable<Pokemon> {

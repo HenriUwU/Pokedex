@@ -5,6 +5,7 @@ import { EvolutionService } from '../../services/evolution.service';
 import { Pokemon } from '../../models/pokemon.model';
 import { PokedexService } from '../../services/pokedex.service';
 import { NgForOf } from '@angular/common';
+import { PokemonResponse } from '../../models/PokemonResponse';
 
 @Component({
   selector: 'app-add-evolution',
@@ -33,14 +34,9 @@ export class AddEvolutionComponent implements OnInit {
         imageUrl: ['', Validators.required]
     })
 
-    this.pokedexService.getPokemons().subscribe(
-      data => {
-        this.pokemons = data;
-        console.log(data);
-      },
-      error => {
-        console.error('Error when trying to get pokemons', error);
-      }
+    this.pokedexService.getPokemons(100, 100).subscribe(
+      (response: PokemonResponse) =>
+        this.pokemons = response.content
     )
   }
 

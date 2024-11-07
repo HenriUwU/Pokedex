@@ -55,7 +55,7 @@ class PokedexControllerTest {
         when(authentication.getName()).thenReturn("wrongUsername");
 
         // Act & Assert
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> pokedexController.getPokemons(authentication));
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> pokedexController.getPokemons(1, 1, authentication));
         assertEquals("User not authenticated", exception.getMessage());
     }
 

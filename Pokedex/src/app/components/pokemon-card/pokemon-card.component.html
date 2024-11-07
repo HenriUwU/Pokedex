@@ -1,27 +1,33 @@
-<div class="pokemon-container">
-	<div class="pokemon-card" *ngFor="let pokemon of pokemons">
-			<h1 *ngIf="!isEditing[pokemon.pokedexNumber]" >
-				 {{ pokemon.name }} 
-				 Nº {{ pokemon.pokedexNumber }}
-			</h1>
-		<input *ngIf="isEditing[pokemon.pokedexNumber]" [(ngModel)]="pokemon.name" type="text">
-
-		<img *ngIf="!isEditing[pokemon.pokedexNumber]" src="{{ pokemon.imageUrl }}" alt="{{pokemon.name}}">
-		<input *ngIf="isEditing[pokemon.pokedexNumber]" [(ngModel)]="pokemon.imageUrl" type="text">
-
-		<p *ngIf="!isEditing[pokemon.pokedexNumber]">
-			Pokedex description: {{pokemon.description}}
-		</p>
-		<input *ngIf="isEditing[pokemon.pokedexNumber]" [(ngModel)]="pokemon.description" type="textarea">
-
-		<div class="update-buttons">
-			<button *ngIf="isEditing[pokemon.pokedexNumber]" (click)="updatePokemon(pokemon)">Save</button>
-			<button *ngIf="isEditing[pokemon.pokedexNumber]" (click)="cancelEdit(pokemon.pokedexNumber)">Cancel</button>
+<div *ngIf="pokemons.length > 0" class="pokemon-container">
+		<div class="pokemon-card" *ngFor="let pokemon of pokemons">
+				<h1 *ngIf="!isEditing[pokemon.pokedexNumber]" >
+						{{ pokemon?.name }} 
+						Nº {{ pokemon?.pokedexNumber }}
+				</h1>
+			<input *ngIf="isEditing[pokemon.pokedexNumber]" [(ngModel)]="pokemon.name" type="text">
+	
+			<img *ngIf="!isEditing[pokemon.pokedexNumber]" src="{{ pokemon?.imageUrl }}" alt="{{pokemon?.name}}">
+			<input *ngIf="isEditing[pokemon.pokedexNumber]" [(ngModel)]="pokemon.imageUrl" type="text">
+	
+			<p *ngIf="!isEditing[pokemon.pokedexNumber]">
+				Pokedex description: {{pokemon?.description}}
+			</p>
+			<input *ngIf="isEditing[pokemon.pokedexNumber]" [(ngModel)]="pokemon.description" type="textarea">
+	
+			<div class="update-buttons">
+				<button *ngIf="isEditing[pokemon.pokedexNumber]" (click)="updatePokemon(pokemon)">Save</button>
+				<button *ngIf="isEditing[pokemon.pokedexNumber]" (click)="cancelEdit(pokemon.pokedexNumber)">Cancel</button>
+			</div>
+	
+			<div *ngIf="pokemons.length > 0" class="delete-button">
+				<button (click)="removePokemon(pokemon.pokedexNumber)">Delete</button> 
+				<button (click)="editPokemon(pokemon.pokedexNumber)">Update</button> 
+			</div>
 		</div>
+</div>
 
-		<div class="delete-button">
-			<button (click)="removePokemon(pokemon.pokedexNumber)">Delete</button> 
-			<button (click)="editPokemon(pokemon.pokedexNumber)">Update</button> 
-		</div>
-	</div>
+<div *ngIf="pokemons.length > 0" class="pagination">
+	<button *ngIf="pokemons.length > 0" (click)="goToPreviousPage()" [disabled]="pageNo === 0">Previous</button>
+	<span>Page {{ pageNo + 1 }} of {{ totalPages }}</span>
+	<button (click)="goToNextPage()" [disabled]="pageNo >= totalPages - 1">Next</button>
 </div>

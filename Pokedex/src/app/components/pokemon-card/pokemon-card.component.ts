@@ -4,7 +4,7 @@ import { PokedexService } from '../../services/pokedex.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { EvolutionCardComponent } from '../evolution-card/evolution-card.component';
+import { PokemonResponse } from '../../models/PokemonResponse';
 
 @Component({
   selector: 'app-pokemon-card',
@@ -14,23 +14,18 @@ import { EvolutionCardComponent } from '../evolution-card/evolution-card.compone
   styleUrl: './pokemon-card.component.scss'
 })
 export class PokemonCardComponent implements OnInit {
-  pokemons!: Pokemon[];
-  isEditing!: { [key:number]: boolean };
+  pokemons: Pokemon[] = [];
+  isEditing: { [key:number]: boolean } = {};
+  pageNo = 0;
+  pageSize = 4;
+  totalPages = 0;
 
   constructor(private pokedexService: PokedexService,
               private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.pokedexService.getPokemons().subscribe(
-      data => {
-        this.pokemons = data;
-      },
-      error => {
-        console.error('Error when trying to get pokemons', error);
-      }
-    )
-    this.isEditing = {};
+    this.loadPokemons();
   }
 
   removePokemon(pokedexNumber: number): void {
@@ -54,9 +49,27 @@ export class PokemonCardComponent implements OnInit {
   }
 
   loadPokemons(): void {
-    this.pokedexService.getPokemons().subscribe(pokemons => {
-      this.pokemons = pokemons;
-    });
+    this.pokedexService.getPokemons(this.pageNo, this.pageSize).subscribe(
+      (response: PokemonResponse) => {
+        this.pokemons = response.content;
+        this.pageNo = response.pageNo;
+        this.pageSize = response.pageSize;
+        this.totalPages = response.totalPages;
+      },
+      error => {
+        console.error('Error when trying to get pokemons', error);
+      }
+    )
+  }
+
+  goToPreviousPage(): void {
+    this.pageNo--;
+    this.loadPokemons();
+  }
+
+  goToNextPage(): void {
+    this.pageNo++;
+    this.loadPokemons();
   }
 
 }
