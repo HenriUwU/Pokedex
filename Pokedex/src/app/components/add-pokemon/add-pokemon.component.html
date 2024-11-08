@@ -27,7 +27,12 @@
 			<input type="text" id="imageUrl" formControlName="imageUrl">
 		</div>
 		<div class="action-buttons">
-			<button type="button" (click)="onSubmitForm()">Add a new Pokemon</button>
+			<button type="button" (click)="onSubmitForm()">Add a new Custom Pokemon</button>
 		</div>
 	</form>
+</div>
+
+<div class="add-from-api">
+	<input type="text" [(ngModel)]="searchTerm" placeholder="Add Pokemon by name" />
+	<button (click)="searchPokemon()">Search</button>
 </div>

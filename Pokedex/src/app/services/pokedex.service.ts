@@ -31,6 +31,10 @@ export class PokedexService {
     return this.httpClient.post<Pokemon>(this.apiUrl, body);
   }
 
+  addPokemonFromAPI(body: String): Observable<Pokemon> {
+    return this.httpClient.post<Pokemon>(this.apiUrl + '/from-api', body);
+  }
+
   removePokemon(pokedexNumber: number): Observable<Pokemon> {
     return this.httpClient.delete<Pokemon>(this.apiUrl + '/' + pokedexNumber);
   }

@@ -14,6 +14,7 @@ import { PokedexService } from '../../services/pokedex.service';
 export class AddPokemonComponent implements OnInit {
 
 	newPokemonForm!: FormGroup;
+	searchTerm!: String;
 
 	constructor(private router: Router, 
 		private formBuilder: FormBuilder, 
@@ -27,6 +28,7 @@ export class AddPokemonComponent implements OnInit {
 			description: ['', Validators.required],
 			imageUrl: ['', Validators.required]
 		});
+		this.searchTerm = '';
 	}
 
 	onSubmitForm(): void {
@@ -35,6 +37,13 @@ export class AddPokemonComponent implements OnInit {
 				this.router.navigateByUrl('pokedex')
 			);
 		}
+	}
+
+	searchPokemon(): void {
+		console.log('Searching Pokemon with name: ' + this.searchTerm);
+		this.pokedexService.addPokemonFromAPI(this.searchTerm).subscribe(() =>
+			this.router.navigateByUrl('pokedex')
+		);
 	}
 
 }

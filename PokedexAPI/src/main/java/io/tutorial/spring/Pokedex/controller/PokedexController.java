@@ -46,11 +46,7 @@ public class PokedexController {
 			throw new RuntimeException("User not authenticated");
 		}
 
-		if (name == null || name.isEmpty()) {
-			return new ResponseEntity<>(pokedexService.getPokemons(username, pageNo, pageSize), HttpStatus.OK);
-		}
-		else
-			return new ResponseEntity<>(pokedexService.getPokemonsByName(username, name, pageNo, pageSize), HttpStatus.OK);
+		return new ResponseEntity<>(pokedexService.getPokemons(username, name, pageNo, pageSize), HttpStatus.OK);
 	}
 
 	@PostMapping
@@ -61,6 +57,16 @@ public class PokedexController {
 		Pokemon pokemon = pokemonMapper.toPokemon(pokemonDTO);
 		pokemon.setUser(user);
 		pokedexService.addPokemon(pokemon);
+	}
+
+	@PostMapping("/from-api")
+	public void addPokemonFromApi(@RequestBody String pokemonName, Authentication authentication) {
+		String username = authentication.getName();
+		User user = userService.findByUsername(username)
+				.orElseThrow(() -> new RuntimeException("User not authenticated"));
+		if (pokemonName != null && !pokemonName.isEmpty()) {
+			pokedexService.addPokemonFromAPI(pokemonName, user);
+		}
 	}
 
 	@DeleteMapping("/{pokedexNumber}")
