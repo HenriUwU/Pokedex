@@ -19,6 +19,7 @@ export class PokemonCardComponent implements OnInit {
   pageNo = 0;
   pageSize = 4;
   totalPages = 0;
+  searchTerm: String = '';
 
   constructor(private pokedexService: PokedexService,
               private router: Router
@@ -49,7 +50,7 @@ export class PokemonCardComponent implements OnInit {
   }
 
   loadPokemons(): void {
-    this.pokedexService.getPokemons(this.pageNo, this.pageSize).subscribe(
+    this.pokedexService.getPokemons(this.pageNo, this.pageSize, this.searchTerm).subscribe(
       (response: PokemonResponse) => {
         this.pokemons = response.content;
         this.pageNo = response.pageNo;
@@ -60,6 +61,11 @@ export class PokemonCardComponent implements OnInit {
         console.error('Error when trying to get pokemons', error);
       }
     )
+  }
+
+  searchPokemons(): void {
+    this.pageNo = 0;
+    this.loadPokemons();
   }
 
   goToPreviousPage(): void {

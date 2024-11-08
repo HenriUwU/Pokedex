@@ -42,6 +42,23 @@ public class PokedexService {
         return pokemonResponse;
 	}
 
+	public PokemonResponse getPokemonsByName(String username, String name, int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo, pageSize);
+		Page<Pokemon> pageOfPokemons = pokedexRepository.findByUser_UsernameAndNameContainingIgnoreCase(username, name, pageable);
+		List<Pokemon> listOfPokemons = pageOfPokemons.getContent();
+		List<PokemonDTO> content = pokemonMapper.toDtoList(listOfPokemons);
+
+		PokemonResponse pokemonResponse = new PokemonResponse();
+		pokemonResponse.setContent(content);
+		pokemonResponse.setPageNo(pageOfPokemons.getNumber());
+		pokemonResponse.setPageSize(pageOfPokemons.getSize());
+		pokemonResponse.setTotalElements(pageOfPokemons.getTotalElements());
+		pokemonResponse.setTotalPages(pageOfPokemons.getTotalPages());
+		pokemonResponse.setLast(pageOfPokemons.isLast());
+
+		return pokemonResponse;
+	}
+
 	public Optional<Pokemon> getPokemonByIdAndUser(Integer pokedexNumber, String username) {
 		return pokedexRepository.findByPokedexNumberAndUser_Username(pokedexNumber, username);
 	}

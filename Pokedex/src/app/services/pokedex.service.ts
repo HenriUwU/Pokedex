@@ -15,10 +15,14 @@ export class PokedexService {
               private authService: AuthService
   ) { }
 
-  getPokemons(pageNo: number, pageSize: number): Observable<PokemonResponse> {
-    const params = new HttpParams()
+  getPokemons(pageNo: number, pageSize: number, name?: String): Observable<PokemonResponse> {
+    let params = new HttpParams()
       .set('pageNo', pageNo.toString())
       .set('pageSize', pageSize.toString());
+
+    if (name) {
+      params = params.set('name', name.toString());
+    }
 
     return this.httpClient.get<PokemonResponse>(this.apiUrl, { params });
   }

@@ -11,6 +11,7 @@ import io.tutorial.spring.Pokedex.model.Pokemon;
 
 public interface PokedexRepository extends CrudRepository<Pokemon, Integer> {
 
+	Page<Pokemon> findByUser_UsernameAndNameContainingIgnoreCase(String username, String name, Pageable pageable);
 	Page<Pokemon> findByUser_Username(String username, Pageable pageable);
 	Optional<Pokemon> findByPokedexNumberAndUser_Username(Integer pokedexNumber, String username);
 

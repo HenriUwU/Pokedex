@@ -39,13 +39,18 @@ public class PokedexController {
 	public ResponseEntity<PokemonResponse> getPokemons(
 			@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
 			@RequestParam(value = "pageSize", defaultValue = "1", required = false) int pageSize,
+			@RequestParam(value = "name", defaultValue = "", required = false) String name,
 			Authentication authentication) {
 		String username = authentication.getName();
 		if (!authentication.isAuthenticated()) {
 			throw new RuntimeException("User not authenticated");
 		}
 
-		return new ResponseEntity<>(pokedexService.getPokemons(username, pageNo, pageSize), HttpStatus.OK);
+		if (name == null || name.isEmpty()) {
+			return new ResponseEntity<>(pokedexService.getPokemons(username, pageNo, pageSize), HttpStatus.OK);
+		}
+		else
+			return new ResponseEntity<>(pokedexService.getPokemonsByName(username, name, pageNo, pageSize), HttpStatus.OK);
 	}
 
 	@PostMapping
