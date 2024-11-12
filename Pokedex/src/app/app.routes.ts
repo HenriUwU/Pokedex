@@ -6,6 +6,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { authGuard } from './auth.guard';
 import { AddEvolutionComponent } from './components/add-evolution/add-evolution.component';
+import { StepperComponent } from './components/stepper/stepper.component';
 
 export const routes: Routes = [
 	{ path: '', component: LandingPageComponent, canActivate: [authGuard] },
@@ -13,5 +14,6 @@ export const routes: Routes = [
 	{ path: 'addPokemon', component: AddPokemonComponent, canActivate: [authGuard] },
 	{ path: 'register', component: RegisterComponent },
 	{ path: 'login', component: LoginComponent },
-	{ path: 'addEvolution', component: AddEvolutionComponent, canActivate: [authGuard] }
+	{ path: 'addEvolution', component: AddEvolutionComponent, canActivate: [authGuard] },
+	{ path: 'stepper', component: StepperComponent, canActivate: [authGuard] }
 ];

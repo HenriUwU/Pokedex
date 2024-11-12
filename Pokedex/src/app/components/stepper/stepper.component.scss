@@ -1,0 +1,76 @@
+nav {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 50px;
+	text-align: center;
+	box-sizing: border-box;
+	width:20%;
+	margin:2% auto;
+	padding: 10px 30px;
+	box-shadow: lightgray 4px 4px 20px;
+	border-radius: 20px;
+	background-color: rgb(39, 39, 39);
+	
+
+	a {
+		text-decoration: none;
+		color: whitesmoke;
+		font-size: 120%;
+	}
+
+	a:hover {
+		font-weight: bold;
+	}
+}
+
+.stepper {
+	margin-top: 4%;
+	margin-left: 4%;
+	margin-right: 4%;
+	margin-bottom: 4%;;
+}
+
+.form-card {
+	box-sizing: border-box;
+	width: 50%;
+	margin: 90px auto;
+	padding: 10px 30px;
+	box-shadow: lightgray 4px 4px 20px;
+  
+  .form-group {
+	margin: 10px auto;
+	width: 80%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+  }
+  
+  input, textarea {
+	width: 50%;
+  }
+  
+  .action-buttons {
+	width: 100%;
+  }
+  
+  button {
+	display: block;
+	margin: 20px auto;
+  }
+}
+
+.add-from-api {
+	text-align: center;
+}
+
+.mat-button-next {
+	background-color: rgb(39, 39, 39);
+	color: whitesmoke;
+	margin-left: 90%;
+}
+
+.mat-button-previous {
+	background-color: rgb(39, 39, 39);
+	color: whitesmoke;
+}
