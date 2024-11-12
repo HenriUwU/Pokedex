@@ -7,6 +7,16 @@
 	</div>
 </nav>
 
+<div class="evolution-of">
+	<label for="pokemon">Evolution of: </label>
+	<select id="pokemon" class="form-control" (change)="onPokemonSelect($event)">
+		<option value="">--Select--</option>
+		<option *ngFor="let pokemon of pokemons" [value]="pokemon.pokedexNumber">
+			{{ pokemon.name }} Nº {{ pokemon.pokedexNumber }}
+		</option>
+	</select>
+</div>
+
 <div class="form-card">
 	<h2>New Evolution</h2>
 	<form [formGroup]="newEvolutionForm">
@@ -26,17 +36,13 @@
 			<label for="imageUrl">Image url</label>
 			<input type="text" id="imageUrl" formControlName="imageUrl">
 		</div>
-		<div class="form-group">
-			<label for="pokemon">Evolution of: </label>
-			<select id="pokemon" class="form-control" (change)="onPokemonSelect($event)">
-				<option value="">--Select--</option>
-				<option *ngFor="let pokemon of pokemons" [value]="pokemon.pokedexNumber">
-					{{ pokemon.name }} Nº {{ pokemon.pokedexNumber }}
-				</option>
-			</select>
-		</div>
 		<div class="action-buttons">
-			<button type="button" (click)="onSubmitForm()">Add a new Evolution</button>
+			<button type="button" (click)="onSubmitForm()">Add a new custom Evolution</button>
 		</div>
 	</form>
+</div>
+
+<div class="add-from-api">
+	<input type="text" [(ngModel)]="searchTerm" placeholder="Add Pokemon by name" />
+	<button (click)="searchEvolution()">Search</button>
 </div>

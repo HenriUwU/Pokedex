@@ -23,7 +23,7 @@ export class PokemonCardComponent implements OnInit {
 
   constructor(private pokedexService: PokedexService,
               private router: Router
-  ) {}
+        ) {}
 
   ngOnInit(): void {
     this.loadPokemons();
@@ -77,5 +77,5 @@ export class PokemonCardComponent implements OnInit {
     this.pageNo++;
     this.loadPokemons();
   }
-
+  
 }

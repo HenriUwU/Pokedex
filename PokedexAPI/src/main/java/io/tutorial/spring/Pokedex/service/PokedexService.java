@@ -8,7 +8,6 @@ import io.tutorial.spring.Pokedex.dto.PokemonDTO;
 import io.tutorial.spring.Pokedex.dto.PokemonResponse;
 import io.tutorial.spring.Pokedex.mapper.PokemonMapper;
 import io.tutorial.spring.Pokedex.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -66,21 +65,7 @@ public class PokedexService {
 					new ParameterizedTypeReference<Map<String, Object>>() {}
 			);
 
-			Map<String, Object> pokemonData = response.getBody();
-
-			assert pokemonData != null;
-			Integer pokedexNumber = (Integer) pokemonData.get("id");
-			String name = (String) pokemonData.get("name");
-			String description = "A wild " + name + " appeared!";
-
-			@SuppressWarnings("unchecked")
-			Map<String, Object> sprites = (Map<String, Object>) pokemonData.get("sprites");
-			String imageUrl = (String) sprites.get("front_default");
-
-			if (imageUrl == null || imageUrl.isEmpty())
-				imageUrl = "https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg";
-
-			PokemonDTO pokemonDTO = new PokemonDTO(pokedexNumber, name, description, imageUrl);
+			PokemonDTO pokemonDTO = getPokemonDTO(response);
 			Pokemon pokemon = pokemonMapper.toPokemon(pokemonDTO);
 
 			pokemon.setUser(user);
@@ -90,6 +75,24 @@ public class PokedexService {
 			throw new RuntimeException("Error retrieving pokemon from API, at : " + url  + " | ", e);
 		}
 
+	}
+
+	private static PokemonDTO getPokemonDTO(ResponseEntity<Map<String, Object>> response) {
+		Map<String, Object> pokemonData = response.getBody();
+
+		assert pokemonData != null;
+		Integer pokedexNumber = (Integer) pokemonData.get("id");
+		String name = (String) pokemonData.get("name");
+		String description = "A wild " + name + " appeared!";
+
+		@SuppressWarnings("unchecked")
+		Map<String, Object> sprites = (Map<String, Object>) pokemonData.get("sprites");
+		String imageUrl = (String) sprites.get("front_default");
+
+		if (imageUrl == null || imageUrl.isEmpty())
+			imageUrl = "https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg";
+
+        return new PokemonDTO(pokedexNumber, name, description, imageUrl);
 	}
 
 	public Optional<Pokemon> getPokemonByIdAndUser(Integer pokedexNumber, String username) {

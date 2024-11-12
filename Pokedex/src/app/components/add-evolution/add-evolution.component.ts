@@ -18,6 +18,7 @@ export class AddEvolutionComponent implements OnInit {
   newEvolutionForm!: FormGroup;
   pokemonPokedexNumber!: number;
   pokemons!: Pokemon[];
+  searchTerm!: string;
 
   constructor(
     private router: Router,
@@ -34,7 +35,7 @@ export class AddEvolutionComponent implements OnInit {
         imageUrl: ['', Validators.required]
     })
 
-    this.pokedexService.getPokemons(100, 100).subscribe(
+    this.pokedexService.getPokemons(0, 100).subscribe(
       (response: PokemonResponse) =>
         this.pokemons = response.content
     )
@@ -51,6 +52,12 @@ export class AddEvolutionComponent implements OnInit {
   onPokemonSelect(event: Event) {
     const target = event.target as HTMLSelectElement;
     this.pokemonPokedexNumber = Number(target.value);
+  }
+
+  searchEvolution(): void {
+    this.evolutionService.addEvolutionFromAPI(this.searchTerm, this.pokemonPokedexNumber).subscribe(() =>
+      this.router.navigateByUrl('pokedex')
+    );
   }
 
 }

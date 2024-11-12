@@ -16,6 +16,11 @@ export class EvolutionService {
     return this.httpClient.post<Evolution>(this.apiUrl, body, { params });
   }
 
+  addEvolutionFromAPI(body: string, pokemonPokedexNumber: number): Observable<Evolution> {
+    const params = new HttpParams().set('pokemonPokedexNumber', pokemonPokedexNumber);
+    return this.httpClient.post<Evolution>(this.apiUrl + '/from-api', body, { params });
+  }
+
   getEvolutions(): Observable<Evolution[]> {
     return this.httpClient.get<Evolution[]>(this.apiUrl);
   }
